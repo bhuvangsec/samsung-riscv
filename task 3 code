@@ -1,0 +1,117 @@
+ADD (R-Type)
+Operation: Add two registers.
+Format: ADD rd, rs1, rs2
+Example: ADD x5, x1, x2
+Encoding:
+funct7 | rs2   | rs1   | funct3 | rd    | opcode
+0000000| 00010 | 00001 | 000    | 00101 | 0110011
+
+2. SUB (R-Type)
+Operation: Subtract two registers.
+Format: SUB rd, rs1, rs2
+Example: SUB x10, x3, x4
+Encoding:
+funct7 | rs2   | rs1   | funct3 | rd    | opcode
+0100000| 00100 | 00011 | 000    | 01010 | 0110011
+
+3. XOR (R-Type)
+Operation: Bitwise XOR of two registers.
+Format: XOR rd, rs1, rs2
+Example: XOR x6, x1, x2
+Encoding:
+funct7 | rs2   | rs1   | funct3 | rd    | opcode
+0000000| 00010 | 00001 | 100    | 00110 | 0110011
+
+4. ADDI (I-Type)
+Operation: Add immediate value to a register.
+Format: ADDI rd, rs1, imm
+Example: ADDI x5, x1, 10
+Encoding:
+imm[11:0] | rs1   | funct3 | rd    | opcode
+000000001010 | 00001 | 000    | 00101 | 0010011
+
+5. LW (I-Type)
+Operation: Load a word from memory.
+Format: LW rd, imm(rs1)
+Example: LW x5, 4(x1)
+Encoding:
+imm[11:0] | rs1   | funct3 | rd    | opcode
+000000000100 | 00001 | 010    | 00101 | 0000011
+
+6. JALR (I-Type)
+Operation: Jump to address stored in a register with offset.
+Format: JALR rd, imm(rs1)
+Example: JALR x1, 0(x0)
+Encoding:
+imm[11:0] | rs1   | funct3 | rd    | opcode
+000000000000 | 00000 | 000    | 00001 | 1100111
+
+7. SW (S-Type)
+Operation: Store a word to memory.
+Format: SW rs2, imm(rs1)
+Example: SW x5, 8(x1)
+Encoding:
+imm[11:5] | rs2   | rs1   | funct3 | imm[4:0] | opcode
+0000000   | 00101 | 00001 | 010    | 01000    | 0100011
+
+8. SB (S-Type)
+Operation: Store a byte to memory.
+Format: SB rs2, imm(rs1)
+Example: SB x6, 0(x1)
+Encoding:
+imm[11:5] | rs2   | rs1   | funct3 | imm[4:0] | opcode
+0000000   | 00110 | 00001 | 000    | 00000    | 0100011
+
+9. BEQ (B-Type)
+Operation: Branch if equal.
+Format: BEQ rs1, rs2, imm
+Example: BEQ x5, x6, 16
+Encoding:
+imm[12|10:5] | rs2   | rs1   | funct3 | imm[4:1|11] | opcode
+000001  | 00110 | 00101 | 000    | 00001  | 1100011
+
+10. BNE (B-Type)
+Operation: Branch if not equal.
+Format: BNE rs1, rs2, imm
+Example: BNE x7, x8, -8
+Encoding:
+imm[12|10:5] | rs2   | rs1   | funct3 | imm[4:1|11] | opcode
+111111  | 01000 | 00111 | 001    | 11110  | 1100011
+
+11. LUI (U-Type)
+Operation: Load upper immediate into a register.
+Format: LUI rd, imm
+Example: LUI x5, 0x12345
+Encoding:
+imm[31:12]   | rd    | opcode
+0001001000110100 | 00101 | 0110111
+
+12. AUIPC (U-Type)
+Operation: Add upper immediate to program counter.
+Format: AUIPC rd, imm
+Example: AUIPC x1, 0x12345
+Encoding:
+imm[31:12]   | rd    | opcode
+0001001000110100 | 00001 | 0010111
+
+13. JAL (J-Type)
+Operation: Jump and link.
+Format: JAL rd, imm
+Example: JAL x1, 100
+Encoding:
+imm[20|10:1|11|19:12] | rd    | opcode
+00000000001100101000  | 00001 | 1101111
+
+14. NOP (I-Type)
+Operation: No operation.
+Format: NOP
+Encoding:
+imm[11:0] | rs1   | funct3 | rd    | opcode
+000000000000 | 00000 | 000    | 00000 | 0010011
+
+15. ECALL (Special)
+Operation: Environment call.
+Format: ECALL
+Encoding:
+imm[11:0] | rs1   | funct3 | rd    | opcode
+000000000000 | 00000 | 000    | 00000 | 1110011
